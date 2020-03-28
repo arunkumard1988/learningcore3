@@ -1,0 +1,47 @@
+﻿
+@model insta3core3.Models.UserInfoViewModel
+
+@{
+    ViewData["Title"] = "TicketConfirmation";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="~/css/ticket.css" rel="stylesheet" id="bootstrap-css">
+
+<section class="container">
+    <h1>Booking Confirmation</h1>
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <article class="card fl-left">
+            <section class="date">
+                <time>
+                    <span>Paid</span>
+                </time>
+            </section>
+            <section class="card-cont">
+                <small>Ticket Info:</small>
+                <h3>Passenger Name : @Html.DisplayFor(model => model.UserName)</h3>
+                <div class="even-date">
+                    <i class="fa fa-calendar"></i>
+                    <time>
+                        <span>Travel Date : @Html.DisplayFor(model => model.TravelDate)</span>
+                        <span>Pick Up Time : @Html.DisplayFor(model => model.TravelTime)</span>
+                        <span>Address : @Html.DisplayFor(model => model.UserAddress)</span>
+                        <span>Driver Name : @Html.DisplayFor(model => model.DriverName)</span>
+                    </time>
+                </div>
+                <div class="even-info">
+                    <i class="fa fa-map-marker"></i>
+                    <p>
+
+                    </p>
+                </div>
+                <a href="#" id="booked">booked</a>
+            </section>
+        </article>
+        <article class="card fl-left" style="display:none">
+        </article>
+    </div>
+    </div>

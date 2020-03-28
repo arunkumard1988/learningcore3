@@ -1,0 +1,32 @@
+﻿@model IEnumerable<DriverInfoViewModel>
+
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="~/css/custom.css" rel="stylesheet" id="bootstrap-css">
+<!------ Include the above in your HEAD tag ---------->
+<br>
+<br>
+<br>
+@foreach (var items in Model)
+{
+<div class="media">
+   <div class="fav-box"><button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Booking", "Home",new { driverName=items.DriverName,rateperKm= items.RatePerKm,travelDate=@ViewData["travelDate"],destination=@ViewData["destination"],totalKm=@ViewData["distanceValue"]})'">Book Now</button></div>
+    <img class="d-flex align-self-start" src="~/images/etiosimg.png" alt="Placeholder image">
+    <div class="media-body pl-3">
+        <div class="price">Rs.@items.Price  (Driver Name : @items.DriverName)<small>Travel Distance : <b>@ViewData["distanceValue"] Kms</b> </small></div>
+        <div class="stats">
+            <span><i class="fa fa-arrows-alt"></i> Rate per Km : @items.RatePerKm Rs</span>
+            <span><i class="fa fa-arrows-alt"></i> Car Model : @items.CarName</span>
+        </div>
+        <div class="address">
+            Languages Known by Driver : @items.Language
+        </div>
+    </div>
+</div>
+
+}

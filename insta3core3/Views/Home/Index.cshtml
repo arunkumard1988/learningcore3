@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet" href="css/style.css" />
+
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="booking-form">
+                    <form asp-action="ListingCar" id="bookCar">
+                        <div class="form-group">
+                            <div class="form-checkbox">
+
+                                <label for="one-way">
+                                    <input type="radio" id="one-way" name="mode-type" checked>
+                                    <span></span>One way
+                                </label>
+                                <label for="roundtrip">
+                                    <input type="radio" id="roundtrip" name="mode-type" disabled>
+                                    <span></span>Roundtrip
+                                </label>
+                                <label for="multi-city">
+                                    <input type="radio" id="multi-city" name="mode-type" disabled>
+                                    <span></span>Multi-City
+                                </label>
+                                <label for="packagetrip">
+                                    <input type="radio" id="packagetrip" name="mode-type" disabled>
+                                    <span></span>Package
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">From</span>
+                                    <input class="form-control" type="text" placeholder="Select Origin" name="sourceVal" value="Bangalore">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">To</span>
+                                    <input class="form-control" id="pac-input" type="text" name="destinationVal" placeholder="Select Destination">
+                                    <div id="map" style="display:none"></div>
+                                    <input class="form-control" id="distanceVal" style="display:none" type="text" name="distanceVal">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">Departing</span>
+                                    <input class="form-control" type="date" name="dateVal" value='2020-05-21' required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="form-label">Returning</span>
+                                    <input class="form-control" type="text" readonly disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-btn">
+                                    <button class="submit-btn">Book</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/googlemap.js"></script>
+<script src="~/js/booking.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdbwQEhleLkbKRTcLujix79c49LYldFFk&libraries=places&callback=initAutocomplete&origin=Bangalore" async defer></script>
