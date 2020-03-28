@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using insta3core3.Models;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace insta3core3.Controllers
 {
@@ -28,7 +29,7 @@ namespace insta3core3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult TicketConfirmation(string usernamePassenger,string emailPassenger,string mobilePassenger,string addressPassenger,string traveDatePassenger,string traveTimePassenger,string driverDetails)
+        public IActionResult TicketConfirmation(string usernamePassenger,string emailPassenger,string mobilePassenger,string addressPassenger,string traveDatePassenger,string traveTimePassenger,string driverDetails,string finalPrize)
         {
             var userinfo = new UserInfoViewModel();
             userinfo.UserName = usernamePassenger;
@@ -38,7 +39,11 @@ namespace insta3core3.Controllers
             userinfo.TravelDate = traveDatePassenger;
             userinfo.TravelTime = traveTimePassenger;
             userinfo.DriverName = driverDetails;
-            return View("TicketConfirmation",userinfo);
+            userinfo.FinalPrice = finalPrize;
+            //HttpContext.Session.SetString("UserAddress", addressPassenger);
+            //HttpContext.Session.SetString("driverDetails", driverDetails);
+            return View("PaymentGateway", userinfo);
+            //return View("TicketConfirmation",userinfo);
         }
 
         [HttpGet]
@@ -112,6 +117,27 @@ namespace insta3core3.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpGet]
+        public IActionResult SuccessBooking()
+        {
+            var userinfo = new UserInfoViewModel();
+            userinfo.UserName = HttpContext.Session.GetString("driverDetails");
+            userinfo.UserEmail = HttpContext.Session.GetString("driverDetails");
+            userinfo.MobileNo = HttpContext.Session.GetString("driverDetails");
+            userinfo.UserAddress = HttpContext.Session.GetString("UserAddress");
+            userinfo.TravelDate = HttpContext.Session.GetString("driverDetails");
+            userinfo.TravelTime = HttpContext.Session.GetString("driverDetails");
+            userinfo.DriverName = HttpContext.Session.GetString("driverDetails");
+            userinfo.FinalPrice = HttpContext.Session.GetString("driverDetails");  
+            return View("TicketConfirmation", userinfo);
+        }
+
+        [HttpGet]
+        public IActionResult PaymentFailure()
+        {
+            return View("PaymentFailure");
         }
     }
 }

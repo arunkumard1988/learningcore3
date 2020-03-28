@@ -30,13 +30,13 @@ namespace insta3core3.Controllers.Tests
             string traveDatePassenger = "2020-12-12";
             string traveTimePassenger = "10:00";
             string driverDetails = "Amit";
-
+            string finalPrice = "5000";
             // act
             var controller = new HomeController(logger);
-            var result = controller.TicketConfirmation(usernamePassenger, emailPassenger, mobilePassenger, addressPassenger, traveDatePassenger, traveTimePassenger, driverDetails) as ViewResult;
+            var result = controller.TicketConfirmation(usernamePassenger, emailPassenger, mobilePassenger, addressPassenger, traveDatePassenger, traveTimePassenger, driverDetails, finalPrice) as ViewResult;
 
             // assert
-            Assert.AreEqual("TicketConfirmation", result.ViewName);
+            Assert.AreEqual("PaymentGateway", result.ViewName);
 
         }
         [TestMethod()]

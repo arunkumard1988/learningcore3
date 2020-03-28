@@ -1,0 +1,130 @@
+﻿@model insta3core3.Models.UserInfoViewModel
+@{
+    ViewData["Title"] = "PaymentGateway";
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+        Payment Page
+    </title>
+    <script type="text/javascript" src="~/js/SHA512.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+</head>
+<body>
+    <div class="container container-table">
+        <div class="row vertical-center-row">
+            <div class="text-center col-md-10 col-md-offset-4">
+
+                <img src="~/images/payumoney.png" />
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div class="spinner-grow text-success" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <form method="post" action="https://sandboxsecure.payu.in/_payment" name="form1" id="form1">
+
+
+        <input name="key" type="hidden" id="key" value="JBZaLc" />
+        <input name="hash" type="hidden" id="hash" />
+        <input name="txnid" type="hidden" id="txnid" />
+        <table>
+            <tr>
+                <td><b>Mandatory Parameters</b></td>
+            </tr>
+            <tr>
+                <td>Amount: </td>
+                <td>
+                    <input name="amount" type="text" id="amount" value="@Html.DisplayFor(model => model.FinalPrice)" />
+                </td>
+                <td>First Name: </td>
+                <td>
+                    <input name="firstname" type="text" id="firstname" value="@Html.DisplayFor(model => model.UserName)" />
+                </td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>
+                    <input name="email" type="text" id="email" value="@Html.DisplayFor(model => model.UserEmail)" />
+                </td>
+                <td>Phone: </td>
+                <td>
+                    <input name="phone" type="text" id="phone" value="@Html.DisplayFor(model => model.MobileNo)" />
+                </td>
+            </tr>
+            <tr>
+                <td>Product Info: </td>
+                <td colspan="3">
+                    <input name="productinfo" type="text" id="productinfo" value="Car Booking" />
+                </td>
+            </tr>
+            <tr>
+                <td>Success URI: </td>
+                <td colspan="3">
+                    <input name="surl" type="text" id="surl" value="https://localhost:5001/Home/SuccessBooking" />
+                </td>
+            </tr>
+            <tr>
+                <td>Failure URI: </td>
+                <td colspan="3">
+                    <input name="furl" type="text" id="furl" value="https://localhost:5001/Home/PaymentFailure" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>Service Provider: </td>
+                <td>
+                    <input name="service_provider" type="text" value="payu_paisa" id="service_provider" />
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="4"></td>
+
+            </tr>
+        </table>
+        <br />
+        <input type="submit" name="submit" value="submit" id="submit" style="width:100px;" />
+    </form>
+</body>
+</html>
+
+
+<script>
+    jQuery(document).ready(function ($) {
+        $("#form1").hide();
+        var hash1;
+            var txnid = 'AJX' + Math.floor((Math.random() * 99999999) + 1);
+            document.forms[0].txnid.value = txnid;
+            var stringhash = 'JBZaLc' + '|' + txnid + '|' + '@Html.DisplayFor(model => model.FinalPrice)' + '|' + 'Car Booking' + '|' + ' @Html.DisplayFor(model => model.UserName) ' + '|' + '@Html.DisplayFor(model => model.UserEmail)' + '|||||||||||<%=salt%>';
+            //console.log(stringhash);
+            hash1 = SHA512(stringhash);
+            //hash1 = <%strHash %>
+            console.log(hash1);
+            document.forms[0].hash.value = hash1;
+            $("#submit").click();
+    });
+
+</script>
